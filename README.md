@@ -19,8 +19,8 @@ Maven:
 `mvn clean compile`
 
 ## Running
-There is one main executable class called 'Demo'.  
-This demonstrates the creation of a basic file system and executes the **Move**, **Size** and **Path** operations.
+There is one main executable class called 'Demo'.   
+This creates a basic file system and executes the **Move**, **Size** and **Path** operations.
 
 Recommended:  
 Launch 'Demo' from an IDE such as Intellij or Eclipse
