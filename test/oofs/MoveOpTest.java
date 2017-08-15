@@ -32,7 +32,11 @@ public class MoveOpTest
 			driveEntity = (DriveEntity)Entitys.create(EntityType.DRIVE, DRIVE_NAME, "");
 			folderA = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folderA", driveEntity);
 			folderB = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folderB", driveEntity);
+			
+			/* Path of text1 is "home/text1.txt" */
 			text1 = Entitys.createTextEntity("text1", "text1.txt", driveEntity);
+			
+			/* Path of text2 is "home/folderB/text2.txt" */
 			text2 = Entitys.createTextEntity("text2", "text2.txt", folderB);
 		}
 		catch(Exception e)
@@ -106,20 +110,27 @@ public class MoveOpTest
 		 * text1 has a path of "home\folderA\folderB\text1.txt" */
 		assertEquals(text1.getPath(), DRIVE_NAME + PATH_SEP + folderA.getName() + PATH_SEP + folderB.getName() + PATH_SEP + text1.getName());
 		assertEquals(folderA.getSize(), (text1.getSize() + text2.getSize()));
-		
+	}
+	
+	@Test
+	public void testMoveParentFolder()
+	{
 		try
 		{
+			/* Move "folderB" into "folderA" */
+			Entitys.move(folderB.getPath(), folderA.getPath());
+			assertEquals(text2.getPath(), DRIVE_NAME + PATH_SEP + folderA.getName() + PATH_SEP + folderB.getName() + PATH_SEP + text2.getName());
+			
+			/* Move "folderB" from "folderA" to "home" drive */
 			Entitys.move(folderB.getPath(), driveEntity.getPath());
+			assertEquals(folderB.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName());
+			
+			/* text2 should still have folderB as a parent, i.e. "home/folderB/text2.txt" */
+			assertEquals(text2.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName() + PATH_SEP + text2.getName());
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
-		
-		/* Move "folderB" from "folderA" to "home" drive */
-		assertEquals(folderB.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName());
-		
-		/* text1 should still have folderB as a parent, i.e. "home/folderB/text1.txt" */
-		assertEquals(text1.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName() + PATH_SEP + text1.getName());
 	}
 }
