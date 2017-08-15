@@ -20,7 +20,7 @@ Maven:
 
 ## Running
 There is one main executable class called 'Demo'.  
-This creates a basic file system and executes a fixed set of file system operations.
+This demonstrates the creation of a basic file system and executes the **Move**, **Size** and **Path** operations.
 
 Recommended:  
 Launch 'Demo' from an IDE such as Intellij or Eclipse
