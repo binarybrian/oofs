@@ -21,6 +21,7 @@ Maven:
 ## Running
 There is one main executable class called 'Demo'.   
 This creates a basic file system and executes the **Move**, **Size** and **Path** operations.
+The operations shown here are fairly trivial.  More robust tests are implemented as JUnit tests.  Please refer to and run the test suite located in oofs.AllTests.  
 
 Recommended:  
 Launch 'Demo' from an IDE such as Intellij or Eclipse
@@ -32,6 +33,4 @@ Maven:
 `java -cp target/classes/:lib/guava-23.0.jar oofs.Demo`
 
 ## Testing
-* The unit tests can be run indivdually or as a suite.  
-* The test classes are located in 'test/oofs'.
-* The test suite is call 'AllTests'.
+The unit tests can be run indivdually or as a suite and are located in 'test/oofs'.  The test suite is called 'AllTests'.
