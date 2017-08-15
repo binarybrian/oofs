@@ -7,9 +7,13 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
 
+import oofs.entity.AbstractEntity.EntityType;
+import oofs.entity.DriveEntity;
+import oofs.entity.TextEntity;
+
 public class TextEntityTest
 {
-	TextFileEntity textEntity = new TextFileEntity(
+	TextEntity textEntity = new TextEntity(
 										"aTextFile", 
 										ImmutableList.of("home", "user"), 
 										new DriveEntity("drive", ImmutableList.of("root"), ImmutableList.of()),
@@ -26,5 +30,17 @@ public class TextEntityTest
 	public void testSize()
 	{
 		assertEquals(textEntity.getSize(), "12345".length());
+	}
+	
+	@Test
+	public void testPath()
+	{
+		assertEquals(textEntity.getPath(), "home\\user");
+	}
+	
+	@Test
+	public void testType()
+	{
+		assertEquals(textEntity.getType(), EntityType.TEXT);
 	}
 }

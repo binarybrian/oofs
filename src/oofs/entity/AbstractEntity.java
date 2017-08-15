@@ -1,4 +1,4 @@
-package oofs;
+package oofs.entity;
 
 import java.util.Collection;
 
@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 
 public abstract class AbstractEntity
 {
-	static enum EntityType {DRIVE, FOLDER, TEXT, ZIP}
+	public static enum EntityType {DRIVE, FOLDER, TEXT, ZIP}
 	
 	static final Joiner PATH_JOINER = Joiner.on('\\');
 	
@@ -32,5 +32,10 @@ public abstract class AbstractEntity
 	public String getPath()
 	{
 		return PATH_JOINER.join(paths);
+	}
+	
+	public EntityType getType()
+	{
+		return type;
 	}
 }
