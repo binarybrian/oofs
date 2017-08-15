@@ -5,7 +5,7 @@
 * This is a basic "proof-of-concept" design and implementation of an Object-Oriented File System.
 
 ## Dependencies
-* [google/guava](https://github.com/google/guava)
+* [Guava](https://github.com/google/guava)
 * [JUnit4](https://github.com/junit-team/junit4)
 
 ## Building
