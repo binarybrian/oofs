@@ -90,6 +90,6 @@ public class ZipEntityTest extends EntityTest
 		}
 		
 		assertEquals("Folder should be empty", 0, folderEntity.getSize());
-		assertEquals("Zip should be half text length", textContent.length()/2, zipEntity.getSize());
+		assertEquals(textContent.length()/2, zipEntity.getSize());
 	}
 }
