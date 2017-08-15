@@ -28,10 +28,10 @@ Launch 'Demo' from an IDE such as Intellij or Eclipse
 Command Line:  
 `java -cp bin/:lib/guava-23.0.jar oofs.Demo`
 
-Maven:
+Maven:  
 `java -cp target/classes/:lib/guava-23.0.jar oofs.Demo`
 
 ## Testing
 * The unit tests can be run indivdually or as a suite.  
-* The test classes are located in the 'test' folder.
+* The test classes are located in 'test/oofs'.
 * The test suite is call 'AllTests'.
