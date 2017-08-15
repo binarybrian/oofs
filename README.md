@@ -19,8 +19,7 @@ Maven:
 `mvn clean compile`
 
 ## Running
-There is one main executable class called 'Demo'.   
-This creates a basic file system and executes the **Move**, **Size** and **Path** operations.
+There is one main executable class called 'Demo'.  This creates a basic file system and executes the **Move**, **Size** and **Path** operations.
 The operations shown here are fairly trivial.  More robust tests are implemented as JUnit tests.  Please refer to and run the test suite located in oofs.AllTests.  
 
 Recommended:  
