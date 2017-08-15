@@ -53,12 +53,11 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 	
 	public int getContainerSize()
 	{
-		int size = 0;
-		for (FileEntity fileEntity : entitys.values())
-		{
-			size += fileEntity.getSize();
-		}
-		return size;
+		return entitys.values()
+				.stream()
+				.mapToInt(f -> f.getSize())
+				.sum();
+		
 	}
 	
 	public static ContainerMap create()
