@@ -103,8 +103,23 @@ public class MoveOpTest
 		}
 		
 		/* Folder A contains text2 and Folder B 
-		 * text1 path == home\folderA\folderB\text1.txt */
+		 * text1 has a path of "home\folderA\folderB\text1.txt" */
 		assertEquals(text1.getPath(), DRIVE_NAME + PATH_SEP + folderA.getName() + PATH_SEP + folderB.getName() + PATH_SEP + text1.getName());
 		assertEquals(folderA.getSize(), (text1.getSize() + text2.getSize()));
+		
+		try
+		{
+			Entitys.move(folderB.getPath(), driveEntity.getPath());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		/* Move "folderB" from "folderA" to "home" drive */
+		assertEquals(folderB.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName());
+		
+		/* text1 should still have folderB as a parent, i.e. "home/folderB/text1.txt" */
+		assertEquals(text1.getPath(), DRIVE_NAME + PATH_SEP + folderB.getName() + PATH_SEP + text1.getName());
 	}
 }

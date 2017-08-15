@@ -38,6 +38,8 @@ public class SystemEntity
 	
 	private final Map <String, DriveEntity> entitys = Maps.newConcurrentMap();
 	
+	private SystemEntity(){}
+	
 	public Optional <ContainerEntity> findContainerEntity(Iterable <String> pathTokens)
 	{
 		if (Iterables.isEmpty(pathTokens))
