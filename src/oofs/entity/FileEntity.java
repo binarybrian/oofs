@@ -7,9 +7,10 @@ import oofs.entity.Entitys.EntityType;
 import oofs.exception.PathExistsException;
 import oofs.exception.PathNotFoundException;
 
-/* Base class for anything that can be a FileEntity
- * Currently this is @link{TextFileEntity} and @link{ZipFileEntity}
- */
+/**
+ * A FileEntity has-a-parent which means it a child of a {@link}ContainerEntity.  
+ * Subclasses include {@link}FolderEntity(s), {@link}TextEntity(s) and {@link}ZipEntity(s). 
+ **/
 public abstract class FileEntity extends AbstractEntity
 {
 	private ContainerEntity parentContainer;

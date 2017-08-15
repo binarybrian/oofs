@@ -6,6 +6,10 @@ import oofs.entity.Entitys.EntityType;
 import oofs.exception.PathExistsException;
 import oofs.exception.PathNotFoundException;
 
+/**
+ * A FolderEntity is-a-container.  It can contain certain types of Entitys.  These
+ * include other FolderEntity(s), {@link}ZipEntity(s) or {@link}TextEntitys(s).
+ */
 public class FolderEntity extends FileEntity implements ContainerEntity
 {
 	final ContainerMap entitys = ContainerMap.create();
@@ -44,13 +48,13 @@ public class FolderEntity extends FileEntity implements ContainerEntity
 		entitys.removeEntity(fileName);
 	}
 
-	@Override
+	@Override /* ContainerEntity */
 	public void removeAll()
 	{
 		entitys.clear();
 	}
 	
-	@Override
+	@Override /* ContainerEntity */
 	public AbstractEntity getEntity()
 	{
 		return this;

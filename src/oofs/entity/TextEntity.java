@@ -15,12 +15,6 @@ public class TextEntity extends FileEntity
 		setContent(content);
 	}
 	
-	@Override
-	public int getSize()
-	{
-		return content.length();
-	}
-
 	public void setContent(String content)
 	{
 		this.content = Strings.nullToEmpty(content);
@@ -29,5 +23,11 @@ public class TextEntity extends FileEntity
 	public String getContent()
 	{
 		return content;
+	}
+	
+	@Override
+	public int getSize()
+	{
+		return content.length();
 	}
 }

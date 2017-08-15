@@ -15,7 +15,7 @@ public class ZipEntity extends FolderEntity
 	@Override
 	public int getSize()
 	{
-		return super.getSize()/COMPRESS_RATIO;
+		return (super.getSize()/COMPRESS_RATIO);
 	}
 
 }
