@@ -40,7 +40,7 @@ public class FolderEntityTest extends EntityTest
 	@Override
 	public void testPath()
 	{
-		assertEquals(folder.getPath(), DRIVE_NAME + PATH_SEP + folder.getPath());
+		assertEquals(folder.getPath(), DRIVE_NAME + PATH_SEP + folder.getName());
 	}
 
 	@Override
