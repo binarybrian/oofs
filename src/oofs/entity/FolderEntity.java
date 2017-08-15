@@ -1,58 +1,58 @@
 package oofs.entity;
 
-import java.util.Collection;
-
 import oofs.container.ContainerEntity;
+import oofs.container.ContainerMap;
+import oofs.entity.Entitys.EntityType;
+import oofs.exception.PathExistsException;
+import oofs.exception.PathNotFoundException;
 
 public class FolderEntity extends FileEntity implements ContainerEntity
 {
-	Collection <FileEntity> fileEntities;
+	final ContainerMap entitys = ContainerMap.create();
 	
-	public FolderEntity(String name, Collection<String> paths, AbstractEntity parent, Collection <FileEntity> fileEntities)
+	public FolderEntity(String name, ContainerEntity parentContainer)
 	{ 
-		this(EntityType.FOLDER, name, paths, parent, fileEntities);
+		this(EntityType.FOLDER, name, parentContainer);
 	}
 
-	public FolderEntity(EntityType entityType, String name, Collection<String> paths, AbstractEntity parent, Collection <FileEntity> fileEntities)
+	public FolderEntity(EntityType entityType, String name, ContainerEntity parentContainer)
 	{
-		super(entityType, name, paths, parent);
-		this.fileEntities = fileEntities;
+		super(entityType, name, parentContainer);
 	}
 	
 	@Override
 	public int getSize()
 	{
-		return fileEntities
-				.stream()
-				.mapToInt(f -> f.getSize()).sum();
+		return entitys.getContainerSize();
 	}
 
 	@Override
 	public FileEntity getFileEntity(String fileName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return entitys.get(fileName);
+	}
+
+	@Override /* ContainerEntity */
+	public void addFileEntity(FileEntity fileEntity) 	throws PathExistsException
+	{
+		entitys.addEntity(fileEntity);
+	}
+
+	@Override /* ContainerEntity */
+	public void removeFileEntity(String fileName) throws PathNotFoundException
+	{
+		entitys.removeEntity(fileName);
 	}
 
 	@Override
-	public void addFileEntity(FileEntity fileEntity)
+	public void removeAll()
 	{
-		// TODO Auto-generated method stub
-		
+		entitys.clear();
 	}
-
-	@Override
-	public void removeFileEntity(FileEntity fileName)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public AbstractEntity getEntity()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-
 }

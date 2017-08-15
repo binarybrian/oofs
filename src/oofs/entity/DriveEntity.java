@@ -1,56 +1,58 @@
 package oofs.entity;
 
-import java.util.Collection;
-import java.util.List;
-
-import com.google.common.collect.ImmutableList;
-
 import oofs.container.ContainerEntity;
+import oofs.container.ContainerMap;
+import oofs.entity.Entitys.EntityType;
+import oofs.exception.PathExistsException;
+import oofs.exception.PathNotFoundException;
 
 public class DriveEntity extends AbstractEntity implements ContainerEntity
 {
-	final List <FileEntity> fileEntities;
-	public DriveEntity(String name, Collection <String> paths, Collection <FileEntity> fileEntities)
+	final ContainerMap entitys = ContainerMap.create();
+	
+	public DriveEntity(String name)
 	{
-		super(EntityType.DRIVE, name, paths);
-		
-		this.fileEntities = ImmutableList.copyOf(fileEntities);
+		super(EntityType.DRIVE, name);
 	}
 
+	@Override
+	public String getPath()
+	{
+		return name;
+	}
+	
 	@Override
 	public int getSize()
 	{
-		return fileEntities
-				.stream()
-				.mapToInt(f -> f.getSize()).sum();
+		return entitys.getContainerSize();
 	}
-
-	@Override
+	@Override /* ContainerEntity */
 	public FileEntity getFileEntity(String fileName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return entitys.get(fileName);
 	}
 
-	@Override
-	public void addFileEntity(FileEntity fileEntity)
+	@Override /* ContainerEntity */
+	public void addFileEntity(FileEntity fileEntity) throws PathExistsException
 	{
-		// TODO Auto-generated method stub
-		
+		entitys.addEntity(fileEntity);
 	}
 
-	@Override
-	public void removeFileEntity(FileEntity fileName)
+	@Override /* ContainerEntity */
+	public void removeFileEntity(String fileName) throws PathNotFoundException
 	{
-		// TODO Auto-generated method stub
-		
+		entitys.removeEntity(fileName);
 	}
 
-	@Override
+	@Override /* ContainerEntity */
+	public void removeAll()
+	{
+		entitys.clear();
+	}
+	
+	@Override /* ContainerEntity */
 	public AbstractEntity getEntity()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
-
 }

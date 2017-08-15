@@ -4,32 +4,23 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableList;
-
-import oofs.entity.DriveEntity;
 import oofs.entity.TextEntity;
 import oofs.entity.ZipEntity;
+import oofs.exception.PathExistsException;
 
 public class ZipEntityTest
 {
-//	ZipFileEntity textEntity = new ZipFileEntity(
-//			"aTextFile", 
-//			ImmutableList.of("home", "user"), 
-//			new DriveEntity("drive", ImmutableList.of("root"), ImmutableList.of()),
-//			"12345");
+	final String textName = "text";
+	final String content = "123456";
+	final TextEntity textEntity = new TextEntity(content, textName, null);
 	
+	final String zipName = "zip";
+	final ZipEntity zipEntity = new ZipEntity(zipName, null);
 	
-	TextEntity textEntity = new TextEntity(
-			"aTextFile", 
-			ImmutableList.of("home", "user"), 
-			new DriveEntity("drive", ImmutableList.of("root"), ImmutableList.of()),
-			"123456");
-	
-	ZipEntity zipEntity = new ZipEntity(
-			"zip", 
-			ImmutableList.of("home", "user"),
-			new DriveEntity("drive", ImmutableList.of("root"), ImmutableList.of()),
-			ImmutableList.of(textEntity));
+	public ZipEntityTest() throws PathExistsException
+	{
+		zipEntity.addFileEntity(textEntity);
+	}
 	
 	@Test
 	public void testZipSize()

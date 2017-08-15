@@ -1,17 +1,18 @@
 package oofs.entity;
 
-import java.util.Collection;
-
 import com.google.common.base.Strings;
+
+import oofs.container.ContainerEntity;
+import oofs.entity.Entitys.EntityType;
 
 public class TextEntity extends FileEntity
 {
-	final String content;
+	private String content;
 	
-	public TextEntity(String name, Collection <String> paths, AbstractEntity parent, String content)
+	public TextEntity(String content, String name, ContainerEntity parentContainer)
 	{
-		super(EntityType.TEXT, name, paths, parent);
-		this.content = Strings.nullToEmpty(content);
+		super(EntityType.TEXT, name, parentContainer);
+		setContent(content);
 	}
 	
 	@Override
@@ -20,4 +21,13 @@ public class TextEntity extends FileEntity
 		return content.length();
 	}
 
+	public void setContent(String content)
+	{
+		this.content = Strings.nullToEmpty(content);
+	}
+	
+	public String getContent()
+	{
+		return content;
+	}
 }

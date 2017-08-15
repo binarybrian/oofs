@@ -1,23 +1,56 @@
 package oofs.entity;
 
-import java.util.Collection;
+import static oofs.entity.Entitys.PATH_JOINER;
+
+import oofs.container.ContainerEntity;
+import oofs.entity.Entitys.EntityType;
+import oofs.exception.PathExistsException;
+import oofs.exception.PathNotFoundException;
 
 /* Base class for anything that can be a FileEntity
  * Currently this is @link{TextFileEntity} and @link{ZipFileEntity}
  */
 public abstract class FileEntity extends AbstractEntity
 {
-	final AbstractEntity parent;
+	private ContainerEntity parentContainer;
 	
-	public FileEntity(EntityType type, String name, Collection<String> paths, AbstractEntity parent)
+	public FileEntity(EntityType type, String name, ContainerEntity parentContainer)
 	{
-		super(type, name, paths);
-		this.parent = parent;
+		super(type, name);
+		this.parentContainer = parentContainer;
 	}
 
 	public AbstractEntity getParent()
 	{
-		return parent;
+		return parentContainer.getEntity();
 	}
 
+	public ContainerEntity getParentContainer()
+	{
+		return parentContainer;
+	}
+	
+	@Override
+	public String getPath()
+	{
+		return PATH_JOINER.join(getParent().getPath(), getName());
+	}
+	
+	public void setParent(ContainerEntity containerEntity)
+	{
+		try
+		{
+			this.parentContainer.removeFileEntity(getName());
+			this.parentContainer = containerEntity;
+			this.parentContainer.addFileEntity(this);
+		}
+		catch (PathNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (PathExistsException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

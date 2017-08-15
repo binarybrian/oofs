@@ -1,25 +1,21 @@
 package oofs.entity;
 
-import java.util.Collection;
+import oofs.container.ContainerEntity;
+import oofs.entity.Entitys.EntityType;
 
 public class ZipEntity extends FolderEntity
 {
 	static final int COMPRESS_RATIO = 2;
 
-	public ZipEntity(String name, Collection<String> paths, AbstractEntity parent, Collection <FileEntity> fileEntities)
+	public ZipEntity(String name, ContainerEntity parentContainer)
 	{
-		super(EntityType.ZIP, name, paths, parent, fileEntities);
-	}
-
-	public Collection <FileEntity> getFileEntities()
-	{
-		return fileEntities;
+		super(EntityType.ZIP, name, parentContainer);
 	}
 	
 	@Override
 	public int getSize()
 	{
-		return fileEntities.stream().mapToInt(f -> f.getSize()).sum() / COMPRESS_RATIO;
+		return super.getSize()/COMPRESS_RATIO;
 	}
 
 }

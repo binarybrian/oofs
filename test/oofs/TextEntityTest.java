@@ -5,37 +5,26 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.google.common.collect.ImmutableList;
-
-import oofs.entity.AbstractEntity.EntityType;
-import oofs.entity.DriveEntity;
+import oofs.entity.Entitys.EntityType;
 import oofs.entity.TextEntity;
 
 public class TextEntityTest
 {
-	TextEntity textEntity = new TextEntity(
-										"aTextFile", 
-										ImmutableList.of("home", "user"), 
-										new DriveEntity("drive", ImmutableList.of("root"), ImmutableList.of()),
-										"12345");
+	final String name = "name";
+	final String content = "123456";
+	TextEntity textEntity = new TextEntity(content, name, null);
 	
 	@Test
 	public void testName()
 	{
 		assertNotNull(textEntity);
-		assertEquals(textEntity.getName(), "aTextFile");
+		assertEquals(textEntity.getName(), name);
 	}
 	
 	@Test 
 	public void testSize()
 	{
-		assertEquals(textEntity.getSize(), "12345".length());
-	}
-	
-	@Test
-	public void testPath()
-	{
-		assertEquals(textEntity.getPath(), "home\\user");
+		assertEquals(textEntity.getSize(), content.length());
 	}
 	
 	@Test
