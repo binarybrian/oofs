@@ -13,7 +13,7 @@ Recommended:
 Import as a new project in Intellij or Eclipse.
 
 Command Line:  
-`javac -d bin -sourcepath src -cp lib/guava-23.0.jar src/oofs/Demo.java`
+`mkdir -p bin && javac -d bin -sourcepath src -cp lib/guava-23.0.jar src/oofs/Demo.java`
 
 Maven:  
 `mvn clean compile`
