@@ -6,10 +6,11 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
 
-import oofs.entity.Entitys.EntityType;
-import oofs.exception.PathExistsException;
 import oofs.entity.Entitys;
+import oofs.entity.Entitys.EntityType;
 import oofs.entity.TextEntity;
+import oofs.exception.PathExistsException;
+import oofs.exception.PathNotFoundException;
 
 public class TextEntityTest extends EntityTest
 {
@@ -27,6 +28,13 @@ public class TextEntityTest extends EntityTest
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	@Test(expected = PathNotFoundException.class)
+	public void testWhatevs() throws Exception
+	{
+		/* Try to add another TextEntity to this TextEntity.  Exception thrown because TextEntity is not a container. */
+		Entitys.create(EntityType.TEXT, "hello_again.txt", textEntity.getPath());
 	}
 	
 	@Test

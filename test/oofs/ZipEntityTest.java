@@ -13,6 +13,7 @@ import oofs.entity.Entitys.EntityType;
 import oofs.entity.FolderEntity;
 import oofs.entity.TextEntity;
 import oofs.entity.ZipEntity;
+import oofs.exception.PathNotFoundException;
 
 public class ZipEntityTest extends EntityTest
 {
@@ -45,6 +46,12 @@ public class ZipEntityTest extends EntityTest
 	public void teardown()
 	{
 		SystemEntity.system().clear();
+	}
+	
+	@Test(expected = PathNotFoundException.class)
+	public void PathNotFoundException() throws Exception 
+	{
+	    Entitys.create(EntityType.ZIP, "aZipFile", "bad_parent");
 	}
 	
 	@Test

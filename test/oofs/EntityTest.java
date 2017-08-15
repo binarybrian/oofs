@@ -1,15 +1,13 @@
 package oofs;
 
+import static oofs.SystemEntity.system;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import oofs.entity.AbstractEntity;
 import oofs.entity.DriveEntity;
-import oofs.entity.Entitys;
-import oofs.entity.Entitys.EntityType;
 
 public abstract class EntityTest
 {
@@ -22,11 +20,7 @@ public abstract class EntityTest
 	{
 		try
 		{
-			AbstractEntity entity = Entitys.create(EntityType.DRIVE, DRIVE_NAME, "");
-			if (entity instanceof DriveEntity)
-			{
-				driveEntity = ((DriveEntity)entity);
-			}
+			driveEntity = system().createDriveEntity(DRIVE_NAME);
 		}
 		catch(Exception e)
 		{

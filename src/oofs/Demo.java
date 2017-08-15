@@ -8,11 +8,11 @@ import oofs.entity.TextEntity;
 import oofs.entity.ZipEntity;
 
 /** 
- * This a basic "proof-of-concept" demo of an OO file system implementation. 
+ * This is a basic "proof-of-concept" demo of an OO file system implementation. 
  * The operations shown here are fairly trivial.  More robust tests are 
  * implemented as JUnit tests.  Please refer to and run the test suite
- * located in {@link oofs.AllTests.AllTests}.  
- */
+ * located in {@link oofs.AllTests}.  
+ **/
 public class Demo
 {
 	public static void main(String[] args)

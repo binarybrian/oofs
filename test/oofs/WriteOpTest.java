@@ -17,7 +17,7 @@ import oofs.entity.Entitys.EntityType;
 public class WriteOpTest
 {
 	DriveEntity driveEntity;
-	FolderEntity folderA;
+	FolderEntity folderEntity;
 	TextEntity text1;
 	
 	@Before
@@ -26,8 +26,8 @@ public class WriteOpTest
 		try
 		{
 			driveEntity = (DriveEntity)Entitys.create(EntityType.DRIVE, DRIVE_NAME, "");
-			folderA = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folderA", driveEntity);		
-			text1 = Entitys.createTextEntity("text1", "text1.txt", folderA);
+			folderEntity = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folderEntity", driveEntity);		
+			text1 = Entitys.createTextEntity("text1", "text1.txt", folderEntity);
 	
 		}
 		catch(Exception e)
@@ -46,7 +46,7 @@ public class WriteOpTest
 	public void testNotNull()
 	{
 		assertNotNull(driveEntity);
-		assertNotNull(folderA);
+		assertNotNull(folderEntity);
 		assertNotNull(text1);
 	}
 	

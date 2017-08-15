@@ -28,44 +28,18 @@ public class Entitys
 	public static final Joiner PATH_JOINER = Joiner.on(PATH_SEP); 
 	public static final Splitter PATH_SPLITTER = Splitter.on(PATH_SEP);
 	
-	public static AbstractEntity create(EntityType entityType, String name, String parentPath) throws Exception
-	{
-		boolean isPathEmpty = isPathEmpty(parentPath);
-		if (isPathEmpty)
-		{
-			if (entityType == EntityType.DRIVE)
-			{
-				return system().createDriveEntity(name);
-			}
-			throw new PathNotFoundException("Parent path cannot be empty.");
-		}
-		
-		Iterable <String> pathTokens = PATH_SPLITTER.split(parentPath);
-		
-		Optional <ContainerEntity> containerEntityOptional = system().findContainerEntity(pathTokens);
-		if (!containerEntityOptional.isPresent())
-		{
-			throw new PathNotFoundException("Parent path not found in system");
-		}
-		
-		ContainerEntity containerEntity = containerEntityOptional.get();
-		FileEntity fileEntity = createFileEntity(entityType, name, containerEntity.getEntity());
-		
-		return fileEntity;
-	}
-	
 	public static void delete(String path) throws Exception
 	{
 		if (isPathEmpty(path))
 		{
-			throw new Exception("Path not found: Empty Path");
+			throw new PathNotFoundException("Path not found: Empty Path");
 		}
 		
 		Iterable <String> pathTokens = PATH_SPLITTER.split(path);
 		Optional <AbstractEntity> entityOptional = system().findEntity(pathTokens);
 		if (!entityOptional.isPresent())
 		{
-			throw new Exception("Path not found: " + path);
+			throw new PathNotFoundException("Path not found: " + path);
 		}
 		
 		AbstractEntity entity = entityOptional.get();
@@ -84,7 +58,7 @@ public class Entitys
 			deleteFileEntity(entity);
 			break;
 		default:
-			throw new Exception("Unhandled Type: " + entity.getType());
+			throw new IllegalFileSystemOperation("Cannot delete EntityType: " + entity.getType() + ". Unknown Type.");
 		}
 	}
 	
@@ -92,19 +66,19 @@ public class Entitys
 	{
 		if (isPathEmpty(sourcePath))
 		{
-			throw new Exception("Path not found: Source path cannot be empty");
+			throw new PathNotFoundException("Path not found: Source path cannot be empty");
 		}
 		
 		if (isPathEmpty(destPath))
 		{
-			throw new Exception("Path not found: Destination path cannot be empty");
+			throw new PathNotFoundException("Path not found: Destination path cannot be empty");
 		}
 		
 		Iterable <String> sourceTokens = PATH_SPLITTER.split(sourcePath);
 		Optional <AbstractEntity> entityOptional = system().findEntity(sourceTokens);
 		if (!entityOptional.isPresent())
 		{
-			throw new Exception("Source path not found: " + sourcePath);
+			throw new PathNotFoundException("Source path not found: " + sourcePath);
 		}
 		
 		AbstractEntity entity = entityOptional.get();
@@ -119,7 +93,7 @@ public class Entitys
 		Optional <ContainerEntity> destContainerOptional = system().findContainerEntity(destTokens);
 		if (!destContainerOptional.isPresent())
 		{
-			throw new Exception("Destination path not found: " + destPath);
+			throw new PathNotFoundException("Destination path not found: " + destPath);
 		}
 		
 		ContainerEntity destContainer = destContainerOptional.get();
@@ -153,6 +127,32 @@ public class Entitys
 		
 		TextEntity textEntity = (TextEntity)entity;
 		textEntity.setContent(content);
+	}
+	
+	public static AbstractEntity create(EntityType entityType, String name, String parentPath) throws Exception
+	{
+		boolean isPathEmpty = isPathEmpty(parentPath);
+		if (isPathEmpty)
+		{
+			if (entityType == EntityType.DRIVE)
+			{
+				return system().createDriveEntity(name);
+			}
+			throw new PathNotFoundException("Parent path cannot be empty.");
+		}
+		
+		Iterable <String> pathTokens = PATH_SPLITTER.split(parentPath);
+		
+		Optional <ContainerEntity> containerEntityOptional = system().findContainerEntity(pathTokens);
+		if (!containerEntityOptional.isPresent())
+		{
+			throw new PathNotFoundException("Parent path not found in system");
+		}
+		
+		ContainerEntity containerEntity = containerEntityOptional.get();
+		FileEntity fileEntity = createFileEntity(entityType, name, containerEntity.getEntity());
+		
+		return fileEntity;
 	}
 	
 	public static FileEntity createFileEntity(EntityType entityType, String name, AbstractEntity parentEntity) throws IllegalFileSystemOperation, PathExistsException
@@ -195,27 +195,22 @@ public class Entitys
 		return textEntity;
 	}
 	
-	public static DriveEntity createDriveEntity(String name)
-	{
-		return new DriveEntity(name);
-	}
-	
 	private static void deleteFileEntity(AbstractEntity entity) throws Exception
 	{
 		if (!(entity instanceof FileEntity))
 		{
-			throw new Exception("In deleteContainerEntity.  Expected Type " + FileEntity.class.getSimpleName());
+			throw new IllegalFileSystemOperation("Cannot delete EntityType=" + (entity!=null?entity.getType().toString():"null") + ". Expected " + FileEntity.class.getSimpleName());
 		}
 		
 		FileEntity fileEntity = (FileEntity)entity;
 		fileEntity.getParentContainer().removeFileEntity(fileEntity.getName());
 	}
 
-	private static void deleteContainerEntity(AbstractEntity entity) throws Exception
+	private static void deleteContainerEntity(AbstractEntity entity) throws IllegalFileSystemOperation
 	{
 		if (!(entity instanceof ContainerEntity))
 		{
-			throw new Exception("In deleteContainerEntity.  Expected Type " + ContainerEntity.class.getSimpleName());
+			throw new IllegalFileSystemOperation("Cannot delete EntityType=" + (entity!=null?entity.getType().toString():"null") + ". Expected " + ContainerEntity.class.getSimpleName());
 		}
 		
 		ContainerEntity containerEntity = (ContainerEntity)entity;

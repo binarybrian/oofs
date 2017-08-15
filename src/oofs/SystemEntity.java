@@ -118,7 +118,7 @@ public class SystemEntity
 		return Optional.ofNullable(entity);
 	}
 	
-	public AbstractEntity createDriveEntity(String name) throws PathExistsException
+	public DriveEntity createDriveEntity(String name) throws PathExistsException
 	{
 		if (entitys.containsKey(name))
 		{

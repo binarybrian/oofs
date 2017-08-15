@@ -1,5 +1,6 @@
 package oofs;
 
+import static oofs.SystemEntity.system;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -8,8 +9,9 @@ import org.junit.Test;
 
 import oofs.entity.AbstractEntity;
 import oofs.entity.Entitys;
-import oofs.entity.FolderEntity;
 import oofs.entity.Entitys.EntityType;
+import oofs.entity.FolderEntity;
+import oofs.exception.PathExistsException;
 
 public class DriveEntityTest extends EntityTest
 {
@@ -31,6 +33,12 @@ public class DriveEntityTest extends EntityTest
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	@Test(expected = PathExistsException.class)
+	public void testDuplicateDrive() throws PathExistsException
+	{
+		system().createDriveEntity(DRIVE_NAME); /* Two drives cannot have the same name. */
 	}
 	
 	@Test
@@ -58,15 +66,15 @@ public class DriveEntityTest extends EntityTest
 		try
 		{
 			assertEquals("\\home\\docs. Drive size should be 0.", 
-					0, driveEntity.getSize());
+							0, driveEntity.getSize());
 			
 			Entitys.createTextEntity("hello", "hello.txt", folderEntity);
 			assertEquals("\\home\\docs\\hello.txt. Drive size should be 5.", 
-					5, driveEntity.getSize());
+							5, driveEntity.getSize());
 			
 			Entitys.createTextEntity("aaa", "aaa.txt", driveEntity);
 			assertEquals("\\home\\docs\\hello.txt\n\\home\\aaa.txt. Drive size should be 8.",
-					8, driveEntity.getSize());
+							8, driveEntity.getSize());
 			
 			Entitys.delete(folderEntity.getPath());
 		} 
@@ -76,6 +84,6 @@ public class DriveEntityTest extends EntityTest
 		}
 		
 		assertEquals("Folder is deleted.  Remaining: \\home\\aaa.txt. Drive size should be 3.", 
-				3, driveEntity.getSize());
+							3, driveEntity.getSize());
 	}
 }

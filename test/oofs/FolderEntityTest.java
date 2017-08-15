@@ -4,11 +4,14 @@ import static oofs.entity.Entitys.PATH_SEP;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
+import org.junit.Test;
 
 import oofs.entity.Entitys;
 import oofs.entity.Entitys.EntityType;
 import oofs.entity.FolderEntity;
 import oofs.entity.TextEntity;
+import oofs.exception.IllegalFileSystemOperation;
+import oofs.exception.PathExistsException;
 
 public class FolderEntityTest extends EntityTest
 {
@@ -28,6 +31,20 @@ public class FolderEntityTest extends EntityTest
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	@Test(expected = IllegalFileSystemOperation.class) 
+	public void testDriveIsNotChild() throws Exception
+	{
+		/* DRIVE cannot be contained in another Entity */
+		Entitys.create(EntityType.DRIVE, "AnotherDrive", folder.getPath());
+	}
+	
+	@Test(expected = IllegalFileSystemOperation.class)
+	public void testFolderHasParent() throws IllegalFileSystemOperation, PathExistsException
+	{
+		/* Non-DRIVE must be contained in another entity */
+		Entitys.createFileEntity(EntityType.FOLDER, "AnotherFolder", null);
 	}
 	
 	@Override
