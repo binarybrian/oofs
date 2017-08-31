@@ -8,7 +8,7 @@ import oofs.exception.PathNotFoundException;
 
 public class DriveEntity extends AbstractEntity implements ContainerEntity
 {
-	final ContainerMap entitys = ContainerMap.create();
+	final ContainerMap fileEntitys = ContainerMap.create();
 	
 	public DriveEntity(String name)
 	{
@@ -24,30 +24,30 @@ public class DriveEntity extends AbstractEntity implements ContainerEntity
 	@Override
 	public int getSize()
 	{
-		return entitys.getContainerSize();
+		return fileEntitys.getContainerSize();
 	}
 	@Override /* ContainerEntity */
 	public FileEntity getFileEntity(String fileName)
 	{
-		return entitys.get(fileName);
+		return fileEntitys.get(fileName);
 	}
 
 	@Override /* ContainerEntity */
 	public void addFileEntity(FileEntity fileEntity) throws PathExistsException
 	{
-		entitys.addEntity(fileEntity);
+		fileEntitys.addEntity(fileEntity);
 	}
 
 	@Override /* ContainerEntity */
 	public void removeFileEntity(String fileName) throws PathNotFoundException
 	{
-		entitys.removeEntity(fileName);
+		fileEntitys.removeEntity(fileName);
 	}
 
 	@Override /* ContainerEntity */
-	public void removeAll()
+	public void clear()
 	{
-		entitys.clear();
+		fileEntitys.clear();
 	}
 	
 	@Override /* ContainerEntity */

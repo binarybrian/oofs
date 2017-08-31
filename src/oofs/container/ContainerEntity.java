@@ -12,7 +12,8 @@ public interface ContainerEntity
 	public void addFileEntity(FileEntity fileEntity) throws PathExistsException;
 	public void removeFileEntity(String fileName) throws PathNotFoundException;
 	
-	public void removeAll();
+	//public void removeAll();
+	public void clear();
 	
 	public AbstractEntity getEntity();
 }

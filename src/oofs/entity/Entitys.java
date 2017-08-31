@@ -214,7 +214,7 @@ public class Entitys
 		}
 		
 		ContainerEntity containerEntity = (ContainerEntity)entity;
-		containerEntity.removeAll();
+		containerEntity.clear();
 	}
 	
 	private static boolean isPathEmpty(String path)
@@ -222,5 +222,12 @@ public class Entitys
 		return Strings.nullToEmpty(path).trim().isEmpty();
 	}
 	
+	public static FolderEntity createFolder(String name, AbstractEntity parent) throws IllegalFileSystemOperation, PathExistsException
+	{
+		return (FolderEntity)createFileEntity(EntityType.FOLDER, name, parent);
+	}
+	
 	private Entitys(){}
+
+	
 }

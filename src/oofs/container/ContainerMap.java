@@ -18,7 +18,7 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 	{
 		return entitys;
 	}
-
+	
 	@Override
 	public void clear()
 	{
@@ -26,7 +26,7 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 		{
 			if (fileEntity instanceof ContainerEntity)
 			{
-				((ContainerEntity)fileEntity).removeAll();
+				((ContainerEntity)fileEntity).clear();
 			}
 		}
 		super.clear();

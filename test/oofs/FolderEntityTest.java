@@ -69,4 +69,27 @@ public class FolderEntityTest extends EntityTest
 		
 		assertEquals(text.getSize(), folder.getSize());
 	}
+	
+	@Test
+	public void testDelete() throws Exception
+	{
+		//folder = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folder", driveEntity);
+		FolderEntity folderA = Entitys.createFolder("a", folder);
+		FolderEntity folderB = Entitys.createFolder("b", folderA);
+		FolderEntity folderC = Entitys.createFolder("c", folderB);
+		
+		/* folderC should contain textEntity and should have a size of 3 */
+		TextEntity textEntity = Entitys.createTextEntity("abc", "abc", folderC);
+		assertEquals("abc".length(), textEntity.getSize());
+		assertEquals("abc".length(), folderA.getSize());
+		
+		
+		Entitys.move(text.getPath(), folder.getPath());
+		assertEquals("12345".length() + "abc".length(), folder.getSize());
+		
+		folder.clear();
+		assertEquals(0, folder.getSize());
+		assertEquals(0, folderC.getSize());
+		assertEquals(0, driveEntity.getSize());
+	}
 }

@@ -47,9 +47,9 @@ public class FolderEntity extends FileEntity implements ContainerEntity
 	{
 		entitys.removeEntity(fileName);
 	}
-
+	
 	@Override /* ContainerEntity */
-	public void removeAll()
+	public void clear()
 	{
 		entitys.clear();
 	}
