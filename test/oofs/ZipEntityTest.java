@@ -83,18 +83,11 @@ public class ZipEntityTest extends EntityTest
 	}
 	
 	@Test /* Compress a file, i.e. move it from a folder container to a zip container. */
-	public void testZipMove()
+	public void testZipMove() throws Exception
 	{
 		assertEquals(textContent.length(), folderEntity.getSize());
 		
-		try
-		{
-			Entitys.move(textEntity.getPath(), zipEntity.getPath()); 
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
+		Entitys.move(textEntity.getPath(), zipEntity.getPath()); 
 		
 		assertEquals("Folder should be empty", 0, folderEntity.getSize());
 		assertEquals(textContent.length()/2, zipEntity.getSize());

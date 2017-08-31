@@ -61,18 +61,11 @@ public class FolderEntityTest extends EntityTest
 	}
 
 	@Override
-	public void testSize()
+	public void testSize() throws Exception
 	{
 		assertEquals(0, folder.getSize());
 		
-		try
-		{
-			Entitys.move(text.getPath(), folder.getPath());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		Entitys.move(text.getPath(), folder.getPath());
 		
 		assertEquals(text.getSize(), folder.getSize());
 	}

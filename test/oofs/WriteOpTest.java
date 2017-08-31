@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import oofs.entity.DriveEntity;
 import oofs.entity.Entitys;
+import oofs.entity.Entitys.EntityType;
 import oofs.entity.FolderEntity;
 import oofs.entity.TextEntity;
-import oofs.entity.Entitys.EntityType;
 
 public class WriteOpTest
 {
@@ -51,20 +51,14 @@ public class WriteOpTest
 	}
 	
 	@Test
-	public void testWrite()
+	public void testWrite() throws Exception
 	{
 		assertEquals(text1.getContent(), "text1");
 		assertEquals(text1.getSize(), driveEntity.getSize());
 		
 		String newContent = "The rain in Spain falls mostly on the plains";
-		try
-		{
-			Entitys.writeToFile(text1.getPath(), newContent);
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		
+		Entitys.writeToFile(text1.getPath(), newContent);
 		
 		assertEquals(text1.getContent(), newContent);
 		assertEquals(driveEntity.getSize(), newContent.length());

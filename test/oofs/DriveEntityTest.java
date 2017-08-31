@@ -61,27 +61,20 @@ public class DriveEntityTest extends EntityTest
 	}
 
 	@Override
-	public void testSize()
+	public void testSize() throws Exception
 	{
-		try
-		{
-			assertEquals("\\home\\docs. Drive size should be 0.", 
+		assertEquals("\\home\\docs. Drive size should be 0.", 
 							0, driveEntity.getSize());
 			
-			Entitys.createTextEntity("hello", "hello.txt", folderEntity);
-			assertEquals("\\home\\docs\\hello.txt. Drive size should be 5.", 
+		Entitys.createTextEntity("hello", "hello.txt", folderEntity);
+		assertEquals("\\home\\docs\\hello.txt. Drive size should be 5.", 
 							5, driveEntity.getSize());
 			
-			Entitys.createTextEntity("aaa", "aaa.txt", driveEntity);
-			assertEquals("\\home\\docs\\hello.txt\n\\home\\aaa.txt. Drive size should be 8.",
+		Entitys.createTextEntity("aaa", "aaa.txt", driveEntity);
+		assertEquals("\\home\\docs\\hello.txt\n\\home\\aaa.txt. Drive size should be 8.",
 							8, driveEntity.getSize());
 			
-			Entitys.delete(folderEntity.getPath());
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+		Entitys.delete(folderEntity.getPath());
 		
 		assertEquals("Folder is deleted.  Remaining: \\home\\aaa.txt. Drive size should be 3.", 
 							3, driveEntity.getSize());

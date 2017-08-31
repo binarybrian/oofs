@@ -45,5 +45,5 @@ public abstract class EntityTest
 	@Test
 	public abstract void testPath();
 	@Test
-	public abstract void testSize();
+	public abstract void testSize() throws Exception;
 }
