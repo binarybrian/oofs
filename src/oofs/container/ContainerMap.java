@@ -11,18 +11,18 @@ import oofs.exception.PathNotFoundException;
 
 public class ContainerMap extends ForwardingMap<String, FileEntity>
 {
-	final Map <String, FileEntity> entitys = Maps.newConcurrentMap();
+	final Map <String, FileEntity> fileEntitys = Maps.newConcurrentMap();
 	
 	@Override
 	protected Map<String, FileEntity> delegate()
 	{
-		return entitys;
+		return fileEntitys;
 	}
 	
 	@Override
 	public void clear()
 	{
-		for (FileEntity fileEntity : entitys.values())
+		for (FileEntity fileEntity : fileEntitys.values())
 		{
 			if (fileEntity instanceof ContainerEntity)
 			{
@@ -35,7 +35,7 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 	public FileEntity addEntity(FileEntity entity) throws PathExistsException
 	{
 		String name = entity.getName();
-		if (entitys.containsKey(name))
+		if (fileEntitys.containsKey(name))
 		{
 			throw new PathExistsException(name);
 		}
@@ -44,7 +44,7 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 
 	public FileEntity removeEntity(String fileName) throws PathNotFoundException
 	{
-		if (!entitys.containsKey(fileName))
+		if (!fileEntitys.containsKey(fileName))
 		{
 			throw new PathNotFoundException(fileName);
 		}
@@ -53,7 +53,7 @@ public class ContainerMap extends ForwardingMap<String, FileEntity>
 	
 	public int getContainerSize()
 	{
-		return entitys.values()
+		return fileEntitys.values()
 				.stream()
 				.mapToInt(f -> f.getSize())
 				.sum();
