@@ -73,7 +73,6 @@ public class FolderEntityTest extends EntityTest
 	@Test
 	public void testClear() throws Exception
 	{
-		//folder = (FolderEntity)Entitys.createFileEntity(EntityType.FOLDER, "folder", driveEntity);
 		FolderEntity folderA = Entitys.createFolder("a", folder);
 		FolderEntity folderB = Entitys.createFolder("b", folderA);
 		FolderEntity folderC = Entitys.createFolder("c", folderB);
