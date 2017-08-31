@@ -33,3 +33,6 @@ Maven:
 
 ## Testing
 The unit tests can be run indivdually or as a suite and are located in 'test/oofs'.  The test suite is called 'AllTests'.
+
+## Database Representation
+[Nested Set Model for storing hierarchical data](http://mikehillyer.com/articles/managing-hierarchical-data-in-mysql/)
